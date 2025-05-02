@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Media | Lifesteal Server</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 2em;
+      background: linear-gradient(rgba(44, 0, 30, 0.7), rgba(75, 0, 45, 0.7)),
+                  url('server-icon.jpg') no-repeat center center / cover;
+      font-family: 'Minecraftia', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin-bottom: 2em;
+    }
+
+    .mc-button, .discord-button {
+      background: #a00;
+      border: 2px solid #000;
+      padding: 1em 2em;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.1em;
+      min-width: 140px;
+      text-align: center;
+      box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .mc-button:hover, .discord-button:hover {
+      background: #d00;
+      color: #ff0;
+    }
+
+    .media-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .slideshow-column {
+      flex: 1 1 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .slideshow {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 4px solid #000;
+      background: #222;
+      box-shadow: 0 0 20px #a00;
+      position: relative;
+    }
+
+    .slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .slideshow-dots {
+      margin-top: 0.75em;
+      display: flex;
+      justify-content: center;
+      gap: 0.5em;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.3s;
+    }
+
+    .dot.active {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+
+    .video-column {
+      flex: 1 1 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .video-column iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+    }
+    .footer {
+  margin-top: 2em;
+  font-size: 0.8em;
+  text-align: center;
+  color: #aaa;
+}
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <a href="mainpage.html" class="mc-button">Home</a>
+    <a href="staff.html" class="mc-button">Staff</a>
+    <a href="apply.html" class="mc-button">Apply</a>
+    <a href="https://discord.gg/pMEfp5gQb2" class="discord-button" target="_blank">Join</a>
+    <a href="vote.html" class="mc-button">Vote</a>
+  </div>
+
+  <div class="media-container">
+    <!-- Slideshow with dots -->
+    <div class="slideshow-column">
+      <div class="slideshow" id="slideshow">
+        <img class="slide" src="slide1.jpg" alt="Slide 1">
+        <img class="slide" src="slide2.jpg" alt="Slide 2">
+        <img class="slide" src="slide3.jpg" alt="Slide 3">
+        <img class="slide" src="slide4.jpg" alt="Slide 4">
+        <img class="slide" src="slide5.jpg" alt="Slide 5">
+        <img class="slide" src="slide6.jpg" alt="Slide 6">
+      </div>
+      <div class="slideshow-dots">
+        <span class="dot" onclick="showSlide(0)"></span>
+        <span class="dot" onclick="showSlide(1)"></span>
+        <span class="dot" onclick="showSlide(2)"></span>
+        <span class="dot" onclick="showSlide(3)"></span>
+        <span class="dot" onclick="showSlide(4)"></span>
+        <span class="dot" onclick="showSlide(5)"></span>
+      </div>
+    </div>
+
+    <!-- Video section -->
+    <div class="video-column">
+      <iframe src="https://www.youtube.com/embed/MSUIHjO_Jbc?si=BH-aEB5tzsHJeNqx" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/CoKmJ2rO2h8?si=_OBYOb3GkcOk1tFe" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/245qiyJ_Ob0?si=y4NSxPzYJKSG7UEt" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.style.display = i === index ? 'block' : 'none';
+        dots[i].classList.toggle('active', i === index);
+      });
+      currentSlide = index;
+    }
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }, 5000);
+
+    showSlide(0);
+  </script>
+  <div class="footer">
+    &copy; 2025 UncrustedBananas SMP. All rights reserved.
+  </div>
+</body>
+</html>

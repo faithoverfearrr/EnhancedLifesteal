@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apply | UncrustedBananas SMP</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 2em;
+      background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)),
+                  url('server-icon.jpg') center center / cover no-repeat;
+      font-family: 'Minecraftia', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 0.5em;
+    }
+
+    .page-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      margin-bottom: 2em;
+      flex-wrap: wrap;
+    }
+
+    .page-nav a {
+      background: #aa0000;
+      color: white;
+      padding: 0.6em 2.5em;
+      border: 2px solid black;
+      text-decoration: none;
+      font-family: 'Minecraftia', sans-serif;
+      font-size: 0.9em;
+      box-shadow: inset -2px -3px #0006, inset 2px 2px #fff3;
+      transition: background 0.3s, transform 0.2s;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .page-nav a:hover {
+      background: #cc0000;
+      transform: scale(1.05);
+    }
+
+    .page-nav a.active {
+      background: #880000;
+      border-color: #000;
+    }
+
+    form {
+      background: rgba(0, 0, 0, 0.65);
+      border: 2px solid #222;
+      padding: 2em;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 20px #000;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+
+    label {
+      font-size: 0.85em;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: #222;
+      color: white;
+      font-family: 'Minecraftia', sans-serif;
+      border: 2px solid #000;
+      padding: 0.5em;
+      font-size: 0.8em;
+      box-shadow: inset -1px -2px #0005, inset 1px 1px #fff2;
+      resize: vertical;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    button {
+      background: #aa0000;
+      color: white;
+      font-family: 'Minecraftia', sans-serif;
+      font-size: 1em;
+      padding: 0.6em 1.2em;
+      border: 2px solid black;
+      cursor: pointer;
+      box-shadow: inset -2px -3px #0006, inset 2px 2px #fff3;
+      transition: background 0.3s, transform 0.2s;
+      align-self: center;
+      margin-top: 1em;
+    }
+
+    button:hover {
+      background: #cc0000;
+      transform: scale(1.05);
+    }
+    .footer {
+      margin-top: 2em;
+      font-size: 0.8em;
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Apply for Staff</h1>
+
+  <div class="page-nav">
+    <a href="mainpage.html">Home</a>
+    <a href="media.html">Media</a>
+    <a href="staff.html">Staff</a>
+    <a href="https://discord.gg/pMEfp5gQb2" target="_blank">Join</a>
+    <a href="vote.html">Vote</a>
+  </div>
+
+  <form action="https://formspree.io/f/xwpolblz" method="POST">
+    <label for="username">Minecraft Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="13" required>
+
+    <label for="timezone">Timezone:</label>
+    <input type="text" id="timezone" name="timezone" placeholder="e.g., EST, GMT+1" required>
+
+    <label for="position">What position are you applying for?</label>
+    <select id="position" name="position" required>
+      <option value="">-- Select a role --</option>
+      <option value="moderator">Moderator</option>
+      <option value="builder">Builder</option>
+      <option value="lore writer">Lore Writer</option>
+    </select>
+
+    <label for="why">Why do you want to join the staff team?</label>
+    <textarea id="why" name="why" required></textarea>
+
+    <label for="experience">Do you have any relevant experience?</label>
+    <textarea id="experience" name="experience"></textarea>
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <div class="footer">
+    &copy; 2025 UncrustedBananas SMP. All rights reserved.
+  </div>
+</body>
+</html>
