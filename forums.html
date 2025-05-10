@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Server Updates & Announcements</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(#100011ee, #200022ee),
+        url('server-icon.jpg') no-repeat center center / cover;
+      font-family: 'Minecraftia', sans-serif;
+      color: #fff;
+    }
+
+    header {
+      padding: 1em;
+      text-align: center;
+      font-size: 2em;
+      background-color: rgba(0, 0, 0, 0.6);
+      text-shadow: 2px 2px #000;
+    }
+
+    #messages {
+      max-width: 800px;
+      margin: 1em auto;
+      padding: 1em;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #333;
+      box-shadow: inset -2px -2px #0006, inset 2px 2px #fff3;
+    }
+
+    .message {
+      margin-bottom: 1.5em;
+      padding: 1em;
+      background-color: #222;
+      border-left: 4px solid lime;
+    }
+
+    .message h4 {
+      margin: 0 0 0.5em;
+      color: #0f0;
+    }
+
+    .message img, .message video {
+      max-width: 100%;
+      margin-top: 0.5em;
+    }
+
+    .admin-input {
+      display: none;
+      max-width: 800px;
+      margin: 2em auto;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1em;
+      border: 2px solid #444;
+    }
+
+    .admin-input textarea,
+    .admin-input input {
+      width: 100%;
+      margin: 0.5em 0;
+      font-family: 'Minecraftia', sans-serif;
+      padding: 0.5em;
+    }
+
+    .mc-button {
+      background: #a00;
+      color: #fff;
+      border: 2px solid #000;
+      padding: 0.5em 1em;
+      font-family: 'Minecraftia', sans-serif;
+      cursor: pointer;
+    }
+
+    .mc-button:hover {
+      background: #d00;
+      color: #ff0;
+    }
+  </style>
+</head>
+<body>
+  <header>📢 Server News & Announcements</header>
+
+  <div id="messages"></div>
+
+  <div class="admin-input" id="adminPanel">
+    <textarea id="text" placeholder="Write your message..."></textarea>
+    <input type="text" id="imageURL" placeholder="Image URL (optional)">
+    <input type="text" id="videoURL" placeholder="Video URL (optional)">
+    <button class="mc-button" onclick="postMessage()">Post</button>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB7XeZnOj4hmBgQf4tDfQKYwqCYJ5bFq94",
+      authDomain: "elifestealprofiles.firebaseapp.com",
+      databaseURL: "https://elifestealprofiles-default-rtdb.firebaseio.com",
+      projectId: "elifestealprofiles",
+      storageBucket: "elifestealprofiles.appspot.com",
+      messagingSenderId: "724884477048",
+      appId: "1:724884477048:web:59cf2d6da0d4d006df898d"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    const adminUID = "YOUR_UID_HERE"; // <-- Replace this with your actual UID
+
+    auth.onAuthStateChanged(user => {
+      if (user && user.uid === adminUID) {
+        document.getElementById("adminPanel").style.display = "block";
+      }
+    });
+
+    function postMessage() {
+      const text = document.getElementById("text").value;
+      const imageURL = document.getElementById("imageURL").value;
+      const videoURL = document.getElementById("videoURL").value;
+
+      db.ref("announcements").push({
+        text,
+        imageURL,
+        videoURL,
+        timestamp: Date.now()
+      });
+
+      document.getElementById("text").value = "";
+      document.getElementById("imageURL").value = "";
+      document.getElementById("videoURL").value = "";
+    }
+
+    function loadMessages() {
+      const container = document.getElementById("messages");
+      db.ref("announcements").on("child_added", snapshot => {
+        const data = snapshot.val();
+        const msg = document.createElement("div");
+        msg.className = "message";
+        msg.innerHTML = `
+          <h4>📝 Admin Post</h4>
+          <p>${data.text}</p>
+          ${data.imageURL ? `<img src="${data.imageURL}" alt="Image">` : ""}
+          ${data.videoURL ? `<video controls src="${data.videoURL}"></video>` : ""}
+        `;
+        container.prepend(msg);
+      });
+    }
+
+    loadMessages();
+  </script>
+</body>
+</html>
